@@ -4,9 +4,10 @@ import { LoginCredentials, LoginResponse } from './types';
 class AuthService {
   async login(credentials: LoginCredentials): Promise<LoginResponse> {
     const response = await fetchService.post<LoginResponse, LoginCredentials>('/Auth/login', credentials);
-    const { token } = response.data;
+    const { token, user } = response.data;
 
-    localStorage.setItem('token', token);
+    sessionStorage.setItem('token', token);
+    sessionStorage.setItem('user', JSON.stringify(user));
 
     return response.data;
   }
@@ -15,12 +16,18 @@ class AuthService {
     try {
       await fetchService.post('/Auth/logout', {});
     } finally {
-      localStorage.removeItem('token');
+      sessionStorage.removeItem('token');
+      sessionStorage.removeItem('user');
     }
   }
 
+  getCurrentUser(): LoginResponse['user'] | null {
+    const userStr = sessionStorage.getItem('user');
+    return userStr ? JSON.parse(userStr) : null;
+  }
+
   isAuthenticated(): boolean {
-    return !!localStorage.getItem('token');
+    return !!sessionStorage.getItem('token');
   }
 }
 
