@@ -45,15 +45,6 @@ export const LoanRequestForm: React.FC<LoanRequestFormProps> = ({ onSuccess }) =
     <div className="max-w-md mx-auto mt-8 p-6 bg-white rounded-lg shadow-md">
       <h2 className="text-2xl font-bold mb-6 text-center">Solicitar Préstamo</h2>
 
-      <div className="mb-6">
-        <p className="text-gray-600">
-          <span className="font-semibold">Nombre:</span> {user.name}
-        </p>
-        <p className="text-gray-600">
-          <span className="font-semibold">Email:</span> {user.email}
-        </p>
-      </div>
-
       {error && (
         <div className="mb-4 p-3 bg-red-100 text-red-700 rounded-lg">
           {error}

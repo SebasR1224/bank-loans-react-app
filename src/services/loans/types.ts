@@ -7,7 +7,7 @@ export interface LoanRequest {
 export interface LoanResponse {
   id: string;
   amount: number;
-  status: 'pending' | 'approved' | 'rejected';
+  status: 'Pending' | 'Approved' | 'Rejected';
   createdAt: string;
   user: {
     id: string;

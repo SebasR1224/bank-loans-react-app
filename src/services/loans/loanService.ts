@@ -18,6 +18,16 @@ class LoanService {
     const response = await fetchService.get<LoanResponse[]>(`/Loan/customer/${user?.email}`);
     return response.data;
   }
+
+  async approveLoan(loanId: string): Promise<LoanResponse> {
+    const response = await fetchService.put<LoanResponse, { status: string }>(`/Loan/${loanId}/status`, { status: 'Approved' });
+    return response.data;
+  }
+
+  async rejectLoan(loanId: string): Promise<LoanResponse> {
+    const response = await fetchService.put<LoanResponse, { status: string }>(`/Loan/${loanId}/status`, { status: 'Rejected' });
+    return response.data;
+  }
 }
 
 export const loanService = new LoanService();

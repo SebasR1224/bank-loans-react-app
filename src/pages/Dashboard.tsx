@@ -1,16 +1,19 @@
 import { LoanRequestForm } from '../components/LoanRequestForm';
-import { LoanList } from '../components/LoanList';
+import { UserLoanList } from '../components/UserLoanList';
+import { AdminLoanList } from '../components/AdminLoanList';
 import { useAuth } from '../hooks/useAuth';
 import { useState } from 'react';
 
 const Dashboard = () => {
-  const { logout } = useAuth();
+  const { logout, user } = useAuth();
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
   const handleLoanSuccess = () => {
     setShowSuccessMessage(true);
     setTimeout(() => setShowSuccessMessage(false), 3000);
   };
+
+  const isAdmin = user?.role === 'Administrator';
 
   return (
     <div className="min-h-screen bg-gray-100">
@@ -44,11 +47,13 @@ const Dashboard = () => {
         )}
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {!isAdmin && (
+            <div>
+              <LoanRequestForm onSuccess={handleLoanSuccess} />
+            </div>
+          )}
           <div>
-            <LoanRequestForm onSuccess={handleLoanSuccess} />
-          </div>
-          <div>
-            <LoanList />
+            {isAdmin ? <AdminLoanList /> : <UserLoanList />}
           </div>
         </div>
       </main>
