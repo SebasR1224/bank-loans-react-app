@@ -1,13 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { AuthContext } from './AuthContext';
+import { AuthContext, User } from './AuthContext';
 import { authService } from '../services/auth/authService';
-
-interface User {
-  id: string;
-  name: string;
-  email: string;
-  role: 'Admin' | 'User';
-}
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);

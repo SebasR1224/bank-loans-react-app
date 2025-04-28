@@ -14,7 +14,7 @@ class AuthService {
 
   async logout(): Promise<void> {
     try {
-      await fetchService.post('/Auth/logout', {});
+      // TODO: Implement logout logic if needed
     } finally {
       sessionStorage.removeItem('token');
       sessionStorage.removeItem('user');
